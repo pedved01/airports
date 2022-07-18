@@ -54,5 +54,5 @@ List<Flight> getflights()
         .RuleFor(x => x.gate, x => x.Random.Int(1, 20))
         .RuleFor(x => x.flight_Type, x => x.Random.Enum<Flight_Type>());
        
-    return flights.Generate(10);
+    return flights.Generate(10) ;
 }

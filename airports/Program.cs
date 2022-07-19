@@ -2,28 +2,40 @@
 using Bogus;
 using ConsoleTables;
 List<Flight> flights = new List<Flight>(10);
-
+flights = getflights();
 Console.WriteLine("Choose operation\nAttantion, input a number!");
-Console.WriteLine("1 - info table\n2 - editinh\n3 - search\n4 - nearest fly");
+Console.WriteLine("1 - editinh\n2 - search\n3 - nearest fly");
 int operation = int.Parse(Console.ReadLine());
 switch (operation)
 {
     case 1:
-        flights =  getflights();
-        printlyfhts(flights);
-        break;
-    case 2:
-        Console.WriteLine("what do you want to change? \n1 - arriving \n 2 - departures");
+
+        printlifhts(flights);
+        Console.WriteLine("what do you want to change? \n1 - date_time\n2 - ID\n3 - terminal\n4 - aviacompany\n5 - gate");
         int action = int.Parse(Console.ReadLine());
-        if (action == 1)
+        Console.WriteLine("Which line do you want to change?");
+        int line = int.Parse(Console.ReadLine());
+        Console.WriteLine("Input new data");
+        var new_element = Console.ReadLine();
+        switch (action)
         {
-            Console.WriteLine("");
+            case 1:
+                flights.
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
         }
         break;
-    case 3:
+    case 2:
         //"search":
         break;
-    case 4:
+    case 3:
         //"nearest fly"
         break;
     default:
@@ -31,11 +43,11 @@ switch (operation)
         break;
 }
 Console.SetCursorPosition(1, 45);
-void printlyfhts(List<Flight> list)
+void printlifhts(List<Flight> info)
 {
     ConsoleTable
-    .From(list)
-    .Configure(o => o.NumberAlignment = Alignment.Right)
+    .From(info)
+    .Configure(x => x.NumberAlignment = Alignment.Right)
     .Write(Format.Alternative);
 }
 
@@ -48,11 +60,11 @@ List<Flight> getflights()
     DateTime dategom = DateTime.Now.AddDays(+1);
     var flights = new Faker<Flight>()
         .RuleFor(x => x.date_time, x => x.Date.Between(datefom, dategom))
-        .RuleFor(x => x.ID, x => x.Random.Int())
         .RuleFor(x => x.terminal, x => x.PickRandom(terminals))
+        .RuleFor(x => x.ID, x => x.Random.Int(0, 100))
         .RuleFor(x => x.aviacompany, x => x.PickRandom(aviacompanys))
         .RuleFor(x => x.gate, x => x.Random.Int(1, 20))
         .RuleFor(x => x.flight_Type, x => x.Random.Enum<Flight_Type>());
-       
-    return flights.Generate(10) ;
+
+    return flights.Generate(10);
 }
